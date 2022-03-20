@@ -14,7 +14,7 @@ port = options.port
 gpio = options.gpio
 
 # Preparing Gauges
-g_humidity = Gauge('humidity', 'NHumidity in percent')
+g_humidity = Gauge('humidity', 'Humidity in percent')
 g_temp = Gauge('temperature', 'Temperature in celsius')
 g_humidity.set_function(lambda: read_sensor(gpio)["humidity"])
 g_temp.set_function(lambda: read_sensor(gpio)["temperature"])
