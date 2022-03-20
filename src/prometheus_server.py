@@ -17,7 +17,7 @@ gpio = options.gpio
 g_humidity = Gauge('humidity', 'NHumidity in percent')
 g_temp = Gauge('temperature', 'Temperature in celsius')
 g_humidity.set_function(lambda: read_sensor(gpio)["humidity"])
-g_humidity.set_function(lambda: read_sensor(gpio)["temperature"])
+g_temp.set_function(lambda: read_sensor(gpio)["temperature"])
 
 
 # Decorate function with metric.
