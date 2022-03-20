@@ -1,0 +1,2 @@
+prometheus_client~=0.13.1
+Adafruit-DHT==1.4.0 
