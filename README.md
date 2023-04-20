@@ -1,5 +1,16 @@
 # dht22_prometheusExporter
-Repository to export the DHT22-metrics to prometheus with a raspberrypi
+Repository to export the **DHT22**-metrics to Prometheus with a **Raspberrypi**
+
+# Prometheus metrics example
+
+```
+# HELP humidity Humidity in percent
+# TYPE humidity gauge
+humidity 36.29999923706055
+# HELP temperature Temperature in celsius
+# TYPE temperature gauge
+temperature 21.399999618530273
+```
 
 # Setup
 
@@ -10,12 +21,41 @@ Simply run this command to start the Server:
 
 ## with Docker
 
-Simply run this command to start the Server: `docker build .`
+1. build the Docker-Image `docker build .`
+1. Run the docker-container `docker run --privileged -p 8082:[HOST_PORT] [CONTAINER_ID]`
+
+The server will be available on http://localhost:[HOST_PORT]
 
 ## with Docker-Compose
 
-[TBD]
+* Usage with docker-compose depends on your needs
+* The following configuration hilights the needed steps to set it up
 
+docker-compose.yaml
+```
+version: '3'
+services:
+    dht22-exporter:
+    image: xy8000/prometheus-dht22-exporter:latest
+    container_name: dht22-exporter
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - 8082:8082
+    networks:
+      - monitoring
+    env_file:
+      - ./dht22_exporter/env
+networks:
+  monitoring:
+    driver: bridge
+```
+
+./dht22_exporter/env
+```
+PORT=8082
+GPIO=[YOUR_GPIO_ID]
+```
 # Requirements
 
 ## System
@@ -41,7 +81,8 @@ full versions will be documented here: [requirements.txt](./requirements.txt)
 * Check Sensor-Connection
 
 Log-Example:
-```File "/usr/lib/python3.7/wsgiref/handlers.py", line 137, in run
+```
+File "/usr/lib/python3.7/wsgiref/handlers.py", line 137, in run
     self.result = application(self.environ, self.start_response)
   File "/usr/local/lib/python3.7/dist-packages/prometheus_client/exposition.py", line 118, in prometheus_app
     status, header, output = _bake_output(registry, accept_header, params)
@@ -58,14 +99,17 @@ Log-Example:
   File "/usr/local/lib/python3.7/dist-packages/prometheus_client/metrics.py", line 417, in samples
     return (Sample('', {}, float(f()), None, None),)
   File "./src/prometheus_server.py", line 19, in <lambda>
-    g_humidity.set_function(lambda: read_sensor(gpio)["humidity"])```
+    g_humidity.set_function(lambda: read_sensor(gpio)["humidity"])
+```
 
 ## Cannot read GPIO
+
 * Log will contain `RuntimeError: Error accessing GPIO`
 * Check GPIO access (user-privileges)
 
 Log-Example:
-```Traceback (most recent call last):
+```
+Traceback (most recent call last):
   File "/usr/lib/python3.7/wsgiref/handlers.py", line 137, in run
     self.result = application(self.environ, self.start_response)
   File "/home/sshuser/.local/lib/python3.7/site-packages/prometheus_client/exposition.py", line 118, in prometheus_app
@@ -92,4 +136,5 @@ Log-Example:
     return platform.read(sensor, pin)
   File "/home/sshuser/.local/lib/python3.7/site-packages/Adafruit_DHT/Raspberry_Pi_2.py", line 34, in read
     raise RuntimeError('Error accessing GPIO.')
-RuntimeError: Error accessing GPIO.```
+RuntimeError: Error accessing GPIO.
+```
