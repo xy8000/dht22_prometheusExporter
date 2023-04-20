@@ -7,10 +7,11 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 #Copying Source-Code
-COPY ./src/* .
+COPY ./src/* ./
 
-ENV GPIO_PIN=5
-ENV PORT=8080
+#ENV-Parameter
+ENV PORT 8082
+ENV GPIO 4
 
 # Run server
-CMD [ "python", "./prometheus_server.py", "-p ${PORT}", "-g ${GPIO_PIN}"]
+ENTRYPOINT python3 prometheus_server.py -p $PORT -g $GPIO
