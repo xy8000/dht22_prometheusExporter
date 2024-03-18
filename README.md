@@ -1,5 +1,6 @@
 # dht22_prometheusExporter
-Repository to export the **DHT22**-metrics to Prometheus with a **Raspberrypi**
+Repository to export the **DHT22**-metrics to Prometheus with a **Raspberrypi**.
+DATA-Pin needs to be connected to PIN 4 on the GPIO-Board.
 
 # Prometheus metrics example
 
