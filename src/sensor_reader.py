@@ -1,14 +1,22 @@
-import Adafruit_DHT
+import adafruit_dht
 import os
+import board
+import time
 
-DHT_SENSOR = Adafruit_DHT.DHT22
+# Changing pin caused errors. Falling back to hardcoded pin therefore.
+dht_device = adafruit_dht.DHT22(board.D4)
 
 # Will return a dictionary containing the humidity and temperature
 def read_sensor(gpio_pin):
-	humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, gpio_pin)
+	#dht_device = adafruit_dht.DHT22(board.D4)
+	humidity = dht_device.humidity
+	temperature = dht_device.temperature
+	#dht_device.exit()
 
 	if humidity is not None and temperature is not None:
-		return {"humidity" : humidity,
-				"temperature" :temperature}
+		return {
+			"humidity" : humidity,
+			"temperature" :temperature
+			}
 	else:
 		print(f'Failed to retrieve data from humidity sensor. Used GPIO-Pin {gpio_pin}')
