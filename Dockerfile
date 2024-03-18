@@ -11,7 +11,6 @@ COPY ./src/* ./
 
 #ENV-Parameter
 ENV PORT 8082
-ENV GPIO 4
 
 # Run server
-ENTRYPOINT python3 prometheus_server.py -p $PORT -g $GPIO
+ENTRYPOINT python3 prometheus_server.py -p $PORT

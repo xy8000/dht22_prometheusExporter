@@ -1,2 +1,2 @@
-prometheus_client~=0.13.1
-Adafruit-DHT==1.4.0 
+prometheus_client~=0.20.0
+adafruit-circuitpython-dht==4.0.4 

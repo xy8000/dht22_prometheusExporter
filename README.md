@@ -17,7 +17,7 @@ temperature 21.399999618530273
 ## with python
 
 Simply run this command to start the Server:
-`python3 ./src/prometheus_server.py -p [SERVER_PORT] -g [GPIO_PIN]`
+`python3 ./src/prometheus_server.py -p [SERVER_PORT]`
 
 ## with Docker
 
@@ -53,21 +53,17 @@ networks:
 
 ./dht22_exporter/env
 ```
-PORT=8082
-GPIO=[YOUR_GPIO_ID]
+PORT=<<INSERT_SERVER_PORT>>
 ```
 # Requirements
 
 ## System
 
-* May only run on **RaspberryPi**. Tested on V4 and V3
+* May only run on **RaspberryPi**. Tested on V5.
 
 ## Python
 
-* prometheus_client
-* Adafruit-DHT
-
-full versions will be documented here: [requirements.txt](./requirements.txt)
+Full versions can be found here: [requirements.txt](./requirements.txt)
 
 ## Dockerfile
 * Image [python](https://hub.docker.com/_/python/)
