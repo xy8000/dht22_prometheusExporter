@@ -7,7 +7,7 @@ import time
 dht_device = adafruit_dht.DHT22(board.D4)
 
 # Will return a dictionary containing the humidity and temperature
-def read_sensor(gpio_pin):
+def read_sensor():
 	#dht_device = adafruit_dht.DHT22(board.D4)
 	humidity = dht_device.humidity
 	temperature = dht_device.temperature
